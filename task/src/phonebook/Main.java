@@ -25,6 +25,7 @@ public class Main {
         long msecs = (endTime-startTime) % 1000;
         System.out.printf("Found %d / %d entries. Time taken: %d min. %d sec. %d ms.",
                 count, find.size(), mins, secs, msecs);
+        System.out.println();
 
         //Bubble Sort + Jump Search
         count = 0;                                                      //counts number of found instances
@@ -47,14 +48,18 @@ public class Main {
             msecs = (endTime-startTime) % 1000;
             System.out.printf("Found %d / %d entries. Time taken: %d min. %d sec. %d ms.",
                     count, find.size(), mins, secs, msecs);
+            System.out.println();
             mins = (sortTime-startTime) / 60000;
             secs = ((sortTime-startTime) % 60000) / 1000;
             msecs = (sortTime-startTime) % 1000;
             System.out.printf("Sorting time: %d min. %d sec. %d ms.", mins, secs, msecs);
+            System.out.println();
             mins = (endTime-sortTime) / 60000;
             secs = ((endTime-sortTime) % 60000) / 1000;
             msecs = (endTime-sortTime) % 1000;
             System.out.printf("Searching time: %d min. %d sec. %d ms.", mins, secs, msecs);
+            System.out.println();
+
         } else {
             //If bubblesort did time out
             long sortTime = System.currentTimeMillis();
@@ -70,16 +75,49 @@ public class Main {
             msecs = (endTime-startTime) % 1000;
             System.out.printf("Found %d / %d entries. Time taken: %d min. %d sec. %d ms.",
                     count, find.size(), mins, secs, msecs);
+            System.out.println();
             mins = (sortTime-startTime) / 60000;
             secs = ((sortTime-startTime) % 60000) / 1000;
             msecs = (sortTime-startTime) % 1000;
             System.out.printf("Sorting time: %d min. %d sec. %d ms. - STOPPED, moved to linear search", mins, secs, msecs);
+            System.out.println();
             mins = (endTime-sortTime) / 60000;
             secs = ((endTime-sortTime) % 60000) / 1000;
             msecs = (endTime-sortTime) % 1000;
             System.out.printf("Searching time: %d min. %d sec. %d ms.", mins, secs, msecs);
+            System.out.println();
         }
-
+        //Quicksort + Binary Search
+        count = 0;                                                      //counts number of found instances
+        System.out.println("Start searching... (quick sort + binary search)");
+        //Quick Sort
+        startTime = System.currentTimeMillis();
+        filtered = quicksort(filtered);
+        System.out.println("Quicksort exited");
+        long sortTime = System.currentTimeMillis();
+        //Binary Search
+        for (String query: find) {
+            if (binarySearch(query, filtered)) {
+                count++;
+            }
+        }
+        endTime = System.currentTimeMillis();
+        mins = (endTime-startTime) / 60000;
+        secs = ((endTime-startTime) % 60000) / 1000;
+        msecs = (endTime-startTime) % 1000;
+        System.out.printf("Found %d / %d entries. Time taken: %d min. %d sec. %d ms.",
+                count, find.size(), mins, secs, msecs);
+        System.out.println();
+        mins = (sortTime-startTime) / 60000;
+        secs = ((sortTime-startTime) % 60000) / 1000;
+        msecs = (sortTime-startTime) % 1000;
+        System.out.printf("Sorting time: %d min. %d sec. %d ms.", mins, secs, msecs);
+        System.out.println();
+        mins = (endTime-sortTime) / 60000;
+        secs = ((endTime-sortTime) % 60000) / 1000;
+        msecs = (endTime-sortTime) % 1000;
+        System.out.printf("Searching time: %d min. %d sec. %d ms.", mins, secs, msecs);
+        System.out.println();
     }
 
     public static void test(Object o) {
@@ -197,11 +235,12 @@ public class Main {
             //recursion step
 
             //determine pivot
-            String pivot = list.get(list.size()/2);
+            String pivot = list.get(list.size() / 2);
+            swap(list,list.size() / 2,0);
             ArrayList<String> smaller = new ArrayList<>();
             ArrayList<String> bigger = new ArrayList<>();
             //divide
-            for (String element: list) {
+            for (String element: list.subList(1,list.size())) {
                 if (element.compareTo(pivot) > 0) {
                     bigger.add(element);
                 } else {
@@ -210,8 +249,8 @@ public class Main {
             }
             //and...
             ArrayList<String> result = new ArrayList<>();
-            quicksort(smaller);
-            quicksort(bigger);
+            smaller = quicksort(smaller);
+            bigger = quicksort(bigger);
             //CONQUER!!
             result.addAll(smaller);
             result.add(pivot);
@@ -223,8 +262,9 @@ public class Main {
     public static boolean binarySearch(String element, ArrayList<String> list) {
         int minInd = 0;
         int maxInd = list.size()-1;
-        int curr = (maxInd - minInd) / 2;
+        int curr = 0;
         while (minInd != maxInd) {
+            curr = (maxInd + minInd) / 2;
             if (list.get(curr).equals(element)) {
                 return true;
             } else if (element.compareTo(list.get(curr)) > 0) {
