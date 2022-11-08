@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="PhoneBookTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2022-11-08T10:51:18" hostname="NB-ARESS" time="0.087">
+<testsuite name="PhoneBookTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2022-11-08T10:54:18" hostname="NB-ARESS" time="0.094">
   <properties/>
-  <testcase name="start" classname="PhoneBookTest" time="0.087">
+  <testcase name="start" classname="PhoneBookTest" time="0.094">
     <failure message="java.lang.AssertionError: Wrong answer in test #1&#10;&#10;Your output should contain `500 / 500` fragment.&#10;&#10;Please find below the output of your program during this failed test.&#10;&#10;---&#10;&#10;File not found.&#10;File not found.&#10;Start searching...&#10;Found 0 / 0 entries. Time taken: 0 min. 0 sec. 0 ms" type="java.lang.AssertionError">java.lang.AssertionError: Wrong answer in test #1
 
 Your output should contain `500 / 500` fragment.

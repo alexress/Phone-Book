@@ -7,8 +7,9 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<String> data = fileToList("directory.txt");
-        ArrayList<String> find = fileToList("find.txt");
+    ArrayList<String> data =
+        fileToList("C:\\Users\\a.ress\\test\\directory.txt");
+    ArrayList<String> find = fileToList("C:\\Users\\a.ress\\test\\find.txt");
         int count = 0;                                                      //counts number of found instances
         System.out.println("Start searching...");
         long startTime = System.currentTimeMillis();
@@ -33,6 +34,7 @@ public class Main {
             }
         } catch (IOException e) {
             System.out.println("File not found.");
+            System.out.println(e.getMessage());
         } catch (Exception e) {
             System.out.println("Unexpected Error");
             System.out.println(e.getMessage());
