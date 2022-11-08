@@ -13,15 +13,23 @@ public class Main {
         System.out.println("Start searching...");
         long startTime = System.currentTimeMillis();
         for (String query: find) {
-            
+            if (linearSearchContains(query, data)) {
+                count++;
+            }
         }
+        long endTime = System.currentTimeMillis();
+        long mins = (endTime-startTime) / 60000;
+        long secs = ((endTime-startTime) % 60000) / 1000;
+        long msecs = (endTime-startTime) % 1000;
+        System.out.printf("Found %d / %d entries. Time taken: %d min. %d sec. %d ms",
+                count, find.size(), mins, secs, msecs);
     }
     public static ArrayList<String> fileToList(String filename) {
         ArrayList<String> result = new ArrayList<String>();
         try{
             Scanner scanner = new Scanner(new File(filename));
             while (scanner.hasNext()) {
-                result.add(scanner.nextLine())
+                result.add(scanner.nextLine());
             }
         } catch (IOException e) {
             System.out.println("File not found.");
