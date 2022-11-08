@@ -7,7 +7,14 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
+        ArrayList<String> data = fileToList("directory.txt");
+        ArrayList<String> find = fileToList("find.txt");
+        int count = 0;                                                      //counts number of found instances
+        System.out.println("Start searching...");
+        long startTime = System.currentTimeMillis();
+        for (String query: find) {
+            
+        }
     }
     public static ArrayList<String> fileToList(String filename) {
         ArrayList<String> result = new ArrayList<String>();
@@ -23,5 +30,22 @@ public class Main {
             System.out.println(e.getMessage());
         }
         return result;
+    }
+    public static boolean linearSearch(Object element, ArrayList<Object> list) {
+        for (Object current: list) {
+            if (element.equals(current)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean linearSearchContains(String element, ArrayList<String> list) {
+        for (String current: list) {
+            if (current.contains(element)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
