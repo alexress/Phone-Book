@@ -219,4 +219,20 @@ public class Main {
             return result;
         }
     }
+
+    public static boolean binarySearch(String element, ArrayList<String> list) {
+        int minInd = 0;
+        int maxInd = list.size()-1;
+        int curr = (maxInd - minInd) / 2;
+        while (minInd != maxInd) {
+            if (list.get(curr).equals(element)) {
+                return true;
+            } else if (element.compareTo(list.get(curr)) > 0) {
+                minInd = curr;
+            } else {
+                maxInd = curr;
+            }
+        }
+        return list.get(curr).equals(element);
+    }
 }
