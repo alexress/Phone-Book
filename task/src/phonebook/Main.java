@@ -28,22 +28,57 @@ public class Main {
 
         //Bubble Sort + Jump Search
         count = 0;                                                      //counts number of found instances
+        double timeout = 10 * (endTime - startTime);                    //Calculates timeout of bubblesort
         System.out.println("Start searching... (bubble sort + jump search)");
         //Bubble Sort
         startTime = System.currentTimeMillis();
-        bubbleSort(filtered);
-        long sortTime = System.currentTimeMillis();
-        for (String query: find) {
-            if (linearSearchContains(query, data)) {
-                count++;
+        if (bubbleSort(filtered,timeout)) {
+            //If bubblesort didn't time out
+            long sortTime = System.currentTimeMillis();
+            //Jump Search
+            for (String query: find) {
+                if (jumpSearch(query, filtered)) {
+                    count++;
+                }
             }
+            endTime = System.currentTimeMillis();
+            mins = (endTime-startTime) / 60000;
+            secs = ((endTime-startTime) % 60000) / 1000;
+            msecs = (endTime-startTime) % 1000;
+            System.out.printf("Found %d / %d entries. Time taken: %d min. %d sec. %d ms.",
+                    count, find.size(), mins, secs, msecs);
+            mins = (sortTime-startTime) / 60000;
+            secs = ((sortTime-startTime) % 60000) / 1000;
+            msecs = (sortTime-startTime) % 1000;
+            System.out.printf("Sorting time: %d min. %d sec. %d ms.", mins, secs, msecs);
+            mins = (endTime-sortTime) / 60000;
+            secs = ((endTime-sortTime) % 60000) / 1000;
+            msecs = (endTime-sortTime) % 1000;
+            System.out.printf("Searching time: %d min. %d sec. %d ms.", mins, secs, msecs);
+        } else {
+            //If bubblesort did time out
+            long sortTime = System.currentTimeMillis();
+            //Linear Search
+            for (String query: find) {
+                if (linearSearch(query, filtered)) {
+                    count++;
+                }
+            }
+            endTime = System.currentTimeMillis();
+            mins = (endTime-startTime) / 60000;
+            secs = ((endTime-startTime) % 60000) / 1000;
+            msecs = (endTime-startTime) % 1000;
+            System.out.printf("Found %d / %d entries. Time taken: %d min. %d sec. %d ms.",
+                    count, find.size(), mins, secs, msecs);
+            mins = (sortTime-startTime) / 60000;
+            secs = ((sortTime-startTime) % 60000) / 1000;
+            msecs = (sortTime-startTime) % 1000;
+            System.out.printf("Sorting time: %d min. %d sec. %d ms. - STOPPED, moved to linear search", mins, secs, msecs);
+            mins = (endTime-sortTime) / 60000;
+            secs = ((endTime-sortTime) % 60000) / 1000;
+            msecs = (endTime-sortTime) % 1000;
+            System.out.printf("Searching time: %d min. %d sec. %d ms.", mins, secs, msecs);
         }
-        endTime = System.currentTimeMillis();
-        mins = (endTime-startTime) / 60000;
-        secs = ((endTime-startTime) % 60000) / 1000;
-        msecs = (endTime-startTime) % 1000;
-        System.out.printf("Found %d / %d entries. Time taken: %d min. %d sec. %d ms.",
-                count, find.size(), mins, secs, msecs);
 
     }
 
@@ -72,7 +107,11 @@ public class Main {
         ArrayList<String> result = new ArrayList<>();
         for (String element : list) {
             String[] split = element.split(" ");
-            result.add(split[1]+" "+split[2]);
+            if (split.length == 2) {
+                result.add(split[1]);
+            } else {
+                result.add(split[1]+" "+split[2]);
+            }
         }
         return result;
     }
@@ -103,6 +142,20 @@ public class Main {
                 }
             }
         }
+    }
+    public static boolean bubbleSort(ArrayList<String> list, double timeout) {
+        double start = System.currentTimeMillis();
+        while (!isSorted(list)) {
+            if (System.currentTimeMillis() - start > timeout) {
+                return false;
+            }
+            for (int i = 0; i < list.size()-1; i++) {
+                if (list.get(i).compareTo(list.get(i + 1)) > 0) {
+                    swap(list, i, i + 1);
+                }
+            }
+        }
+        return true;
     }
     public static void swap(ArrayList<String> list, int i1, int i2) {
         String temp = list.get(i1);

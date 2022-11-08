@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="PhoneBookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-11-08T11:12:52" hostname="NB-ARESS" time="4.135">
+<testsuite name="PhoneBookTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-11-08T13:48:32" hostname="NB-ARESS" time="19.999">
   <properties/>
-  <testcase name="start" classname="PhoneBookTest" time="4.135"/>
+  <testcase name="start" classname="PhoneBookTest" time="19.999"/>
   <system-out><![CDATA[?[1;31m
 Start test 1?[0m
-Start searching...
-?[1;31m
-Start test 2?[0m
-Start searching...
+Start searching... (linear search)
+Found 500 / 500 entries. Time taken: 0 min. 1 sec. 566 ms.Start searching... (bubble sort + jump search)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

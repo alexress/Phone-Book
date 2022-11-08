@@ -1,6 +1,4 @@
 [1;31m
 Start test 1[0m
-Start searching...
-[1;31m
-Start test 2[0m
-Start searching...
+$Start searching... (linear search)
+jFound 500 / 500 entries. Time taken: 0 min. 1 sec. 566 ms.Start searching... (bubble sort + jump search)
