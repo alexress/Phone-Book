@@ -3,6 +3,7 @@ package phonebook;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Main {
@@ -93,7 +94,6 @@ public class Main {
         //Quick Sort
         startTime = System.currentTimeMillis();
         filtered = quicksort(filtered);
-        System.out.println("Quicksort exited");
         long sortTime = System.currentTimeMillis();
         //Binary Search
         for (String query: find) {
@@ -116,6 +116,40 @@ public class Main {
         mins = (endTime-sortTime) / 60000;
         secs = ((endTime-sortTime) % 60000) / 1000;
         msecs = (endTime-sortTime) % 1000;
+        System.out.printf("Searching time: %d min. %d sec. %d ms.", mins, secs, msecs);
+        System.out.println();
+
+        //HashTable
+        count = 0;                                                      //counts number of found instances
+        System.out.println("Start searching... (hash table)");
+        //Create Table
+        startTime = System.currentTimeMillis();
+        Hashtable<String, String> table = new Hashtable<>();
+        for (String name: filtered) {
+            table.put(name,name);
+        }
+        long tableTime = System.currentTimeMillis();
+        //Binary Search
+        for (String query: find) {
+            if (table.containsKey(query)) {
+                count++;
+            }
+        }
+        endTime = System.currentTimeMillis();
+        mins = (endTime-startTime) / 60000;
+        secs = ((endTime-startTime) % 60000) / 1000;
+        msecs = (endTime-startTime) % 1000;
+        System.out.printf("Found %d / %d entries. Time taken: %d min. %d sec. %d ms.",
+                count, find.size(), mins, secs, msecs);
+        System.out.println();
+        mins = (tableTime-startTime) / 60000;
+        secs = ((tableTime-startTime) % 60000) / 1000;
+        msecs = (tableTime-startTime) % 1000;
+        System.out.printf("Creating time: %d min. %d sec. %d ms.", mins, secs, msecs);
+        System.out.println();
+        mins = (endTime-tableTime) / 60000;
+        secs = ((endTime-tableTime) % 60000) / 1000;
+        msecs = (endTime-tableTime) % 1000;
         System.out.printf("Searching time: %d min. %d sec. %d ms.", mins, secs, msecs);
         System.out.println();
     }
