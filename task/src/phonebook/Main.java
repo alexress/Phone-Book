@@ -188,4 +188,35 @@ public class Main {
         }
         return false;
     }
+
+    public static ArrayList<String> quicksort(ArrayList<String> list) {
+        if (list.size() < 2) {
+            //recursion exit
+            return (ArrayList<String>) list.clone();
+        } else {
+            //recursion step
+
+            //determine pivot
+            String pivot = list.get(list.size()/2);
+            ArrayList<String> smaller = new ArrayList<>();
+            ArrayList<String> bigger = new ArrayList<>();
+            //divide
+            for (String element: list) {
+                if (element.compareTo(pivot) > 0) {
+                    bigger.add(element);
+                } else {
+                    smaller.add(element);
+                }
+            }
+            //and...
+            ArrayList<String> result = new ArrayList<>();
+            quicksort(smaller);
+            quicksort(bigger);
+            //CONQUER!!
+            result.addAll(smaller);
+            result.add(pivot);
+            result.addAll(bigger);
+            return result;
+        }
+    }
 }
